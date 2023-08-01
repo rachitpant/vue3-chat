@@ -39,6 +39,9 @@
       <template v-slot:header>
         <slot name="header"> </slot>
       </template>
+      <template v-slot:additional-header>
+        <slot name="additional-header"> </slot>
+      </template>
       <template v-slot:user-avatar="scopedProps">
         <slot name="user-avatar" :user="scopedProps.user" :message="scopedProps.message"> </slot>
       </template>

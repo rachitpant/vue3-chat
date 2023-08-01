@@ -31,6 +31,9 @@
       <template v-slot:header>
         Chat between {{ participants.map((m) => m.name).join(' & ') }}
       </template>
+      <template v-slot:additional-header>
+        This chat is not real-time.
+      </template>
 
       <template v-slot:text-message-body="scopedProps">
         <p class="sc-message--text-content" v-html="scopedProps.messageText"></p>

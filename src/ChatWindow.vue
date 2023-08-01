@@ -9,6 +9,12 @@
     >
       <slot name="header"> </slot>
     </Header>
+    <div
+      style="text-align: center; width: 100%; margin-top: 3px; margin-bottom: 3px;"
+      :style="{background: colors.header.bg, color: colors.header.text}"
+    >
+      <slot name="additional-header"> </slot>
+    </div>
     <UserList v-if="showUserList" :colors="colors" :participants="participants" />
     <MessageList
       v-if="!showUserList"
