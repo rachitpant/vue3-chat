@@ -15,6 +15,7 @@
       :show-close-button="true"
       :show-launcher="true"
       :show-emoji="true"
+      :show-reply="true"
       :show-file="true"
       :show-typing-indicator="showTypingIndicator"
       :show-edition="true"
@@ -30,14 +31,7 @@
       <template v-slot:header>
         Chat between {{ participants.map((m) => m.name).join(' & ') }}
       </template>
-      <template v-slot:text-message-toolbox="scopedProps">
-        <button
-          v-if="!scopedProps.me && scopedProps.message.type === 'text'"
-          @click.prevent="like(scopedProps.message.id)"
-        >
-          👍
-        </button>
-      </template>
+
       <template v-slot:text-message-body="scopedProps">
         <p class="sc-message--text-content" v-html="scopedProps.messageText"></p>
         <p
@@ -171,6 +165,8 @@ export default {
         text.length > 0 ? this.participants[this.participants.length - 1].id : ''
     },
     onMessageWasSent(message) {
+      console.log('The message to be sent is:')
+      console.log(message)
       this.messageList = [...this.messageList, Object.assign({}, message, {id: Math.random()})]
     },
     openChat() {

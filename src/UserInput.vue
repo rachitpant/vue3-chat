@@ -1,6 +1,7 @@
 <template>
   <div>
-    <Suggestions :suggestions="suggestions" :colors="colors" @sendSuggestion="_submitSuggestion" />
+    <Reply v-if="isReplying" :colors="colors"/>
+    <Suggestions :suggestions="suggestions" :colors="colors" @sendSuggestion="_submitSuggestion" v-else/>
     <div
       v-if="file"
       class="file-container"
@@ -85,9 +86,10 @@ import EmojiIcon from './icons/EmojiIcon.vue'
 import FileIcons from './icons/FileIcons.vue'
 import UserInputButton from './UserInputButton.vue'
 import Suggestions from './Suggestions.vue'
+import Reply from './Reply.vue'
 import FileIcon from './assets/file.svg'
 import CloseIconSvg from './assets/close.svg'
-import store from './store/'
+import store, {mapState} from './store/'
 import IconCross from './components/icons/IconCross.vue'
 import IconOk from './components/icons/IconOk.vue'
 import IconSend from './components/icons/IconSend.vue'
@@ -98,6 +100,7 @@ export default {
     FileIcons,
     UserInputButton,
     Suggestions,
+    Reply,
     IconCross,
     IconOk,
     IconSend
@@ -160,7 +163,11 @@ export default {
     },
     isEditing() {
       return store.state.editMessage && store.state.editMessage.id
-    }
+    },
+    isReplying() {
+      return store.state.replyMessage && store.state.replyMessage.id
+    },
+    ...mapState(['replyMessage'])
   },
   watch: {
     editMessageId(m) {
@@ -204,6 +211,7 @@ export default {
       this.inputActive = onoff
     },
     handleKey(event) {
+      //TODO -- Handle the case for reply.
       if (event.keyCode === 13 && !event.shiftKey) {
         if (!this.isEditing) {
           this._submitText(event)
@@ -235,38 +243,41 @@ export default {
             if (wasSuccessful === undefined || wasSuccessful) {
               this.file = null
               this.$refs.userInput.innerHTML = ''
+              store.setState('replyMessage', null)
             }
           }.bind(this)
         )
       } else {
         this.file = null
         this.$refs.userInput.innerHTML = ''
+        store.setState('replyMessage', null)
       }
     },
     _submitText(event) {
       const text = this.$refs.userInput.textContent
+      const replyMessageId = this.isReplying ? this.replyMessage.id: null;
       const file = this.file
       if (file) {
-        this._submitTextWhenFile(event, text, file)
+        this._submitTextWhenFile(event, text, file, replyMessageId)
       } else {
         if (text && text.length > 0) {
           this._checkSubmitSuccess(
             this.onSubmit({
               author: 'me',
               type: 'text',
-              data: {text}
+              data: {text, replyMessageId}
             })
           )
         }
       }
     },
-    _submitTextWhenFile(event, text, file) {
+    _submitTextWhenFile(event, text, file, replyMessageId) {
       if (text && text.length > 0) {
         this._checkSubmitSuccess(
           this.onSubmit({
             author: 'me',
             type: 'file',
-            data: {text, file}
+            data: {text, file, replyMessageId}
           })
         )
       } else {
@@ -274,7 +285,7 @@ export default {
           this.onSubmit({
             author: 'me',
             type: 'file',
-            data: {file}
+            data: {file, replyMessageId}
           })
         )
       }
@@ -333,6 +344,7 @@ export default {
     },
     _editFinish() {
       store.setState('editMessage', null)
+      store.setState('replyMessage', null)
     }
   }
 }

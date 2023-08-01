@@ -110,6 +110,10 @@ export default {
       type: Boolean,
       default: false
     },
+    showReply: {
+      type: Boolean,
+      default: true
+    },
     showConfirmationDeletion: {
       type: Boolean,
       default: false

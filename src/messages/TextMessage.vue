@@ -37,6 +37,9 @@
         edited
       </p>
     </slot>
+    <button v-if="showReply && !me && message.id && message.type === 'text'" :disabled="isReplying" @click="reply">
+      Reply ↩
+    </button>
   </div>
 </template>
 
@@ -94,11 +97,17 @@ export default {
     isEditing() {
       return (store.state.editMessage && store.state.editMessage.id) === this.message.id
     },
-    ...mapState(['showDeletion', 'showEdition'])
+    isReplying() {
+      return (store.state.replyMessage && store.state.replyMessage.id) === this.message.id
+    },
+    ...mapState(['showDeletion', 'showEdition', 'showReply'])
   },
   methods: {
     edit() {
       store.setState('editMessage', this.message)
+    },
+    reply() {
+      store.setState('replyMessage', this.message)
     },
     ifelse(cond, funcIf, funcElse) {
       return () => {

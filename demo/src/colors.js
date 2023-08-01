@@ -22,6 +22,10 @@ export default {
       bg: '#fff',
       text: '#212121'
     },
+    replyMessage: {
+      bg: '#ff1',
+      text: '#212121'
+    },
     userList: {
       bg: '#fff',
       text: '#212121'
@@ -53,7 +57,11 @@ export default {
     userList: {
       bg: '#fff',
       text: '#212121'
-    }
+    },
+    replyMessage: {
+      bg: '#f4f7f9',
+      text: '#212121'
+    },
   },
   blue: {
     header: {
@@ -81,7 +89,11 @@ export default {
     userList: {
       bg: '#fff',
       text: '#212121'
-    }
+    },
+    replyMessage: {
+      bg: '#f4f7ff',
+      text: '#565867'
+    },
   },
   dark: {
     header: {

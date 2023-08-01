@@ -2,7 +2,8 @@ import {reactive} from 'vue'
 
 const store = {
   state: reactive({
-    editMessage: null
+    editMessage: null,
+    replyMessage: null
   }),
 
   setState(key, val) {
