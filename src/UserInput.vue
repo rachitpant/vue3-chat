@@ -208,10 +208,8 @@ export default {
     cancelFile() {
       this.file = null
     },
-    setMessageText(event) {
-      console.log("about to set message");
-      console.log(event.target.value);
-      this.$refs.userInput.textContent = event.target.value;
+    setMessageText(predefinedMessage) {
+      this.$refs.userInput.textContent = predefinedMessage;
     },
     setInputActive(onoff) {
       this.inputActive = onoff
