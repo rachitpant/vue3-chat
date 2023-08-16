@@ -78,6 +78,7 @@
         </div>
       </div>
     </form>
+    <slot name="predefined-comment" :setMessage="setMessageText"></slot>
   </div>
 </template>
 
@@ -206,6 +207,11 @@ export default {
   methods: {
     cancelFile() {
       this.file = null
+    },
+    setMessageText(event) {
+      console.log("about to set message");
+      console.log(event.target.value);
+      this.$refs.userInput.textContent = event.target.value;
     },
     setInputActive(onoff) {
       this.inputActive = onoff

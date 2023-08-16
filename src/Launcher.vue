@@ -39,6 +39,9 @@
       <template v-slot:header>
         <slot name="header"> </slot>
       </template>
+      <template v-slot:predefined-comment="{setMessage}">
+        <slot name="predefined-comment" :setMessage="setMessage">/</slot>
+      </template>
       <template v-slot:additional-header>
         <slot name="additional-header"> </slot>
       </template>

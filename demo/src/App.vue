@@ -53,6 +53,13 @@
         </p>
       </template>
       <template v-slot:system-message-body="{message}"> [System]: {{ message.text }} </template>
+      <template v-slot:predefined-comment="{setMessage}">
+        <div style="overflow: hidden;">
+          <select style="border: none;background: transparent;margin-left: 10px;" @change="setMessage">
+            <option value="" class="" selected="selected">Or choose a Predefined Comment</option><option value="LOCATION - MEN'S DI CAMPUS ISSUE" label="LOCATION - MEN'S DI CAMPUS ISSUE">LOCATION - MEN'S DI CAMPUS ISSUE</option><option value="LOCATION - MEN'S DI CAMPUS ISSUE - LEAGUE" label="LOCATION - MEN'S DI CAMPUS ISSUE - LEAGUE">LOCATION - MEN'S DI CAMPUS ISSUE - LEAGUE</option><option value="LOCATION - SECONDARY SITES" label="LOCATION - SECONDARY SITES">LOCATION - SECONDARY SITES</option>
+          </select>
+        </div>
+      </template>
     </beautiful-chat>
     <p class="text-center toggle">
       <a v-if="!isChatOpen" :style="{color: linkColor}" href="#" @click.prevent="openChat()"

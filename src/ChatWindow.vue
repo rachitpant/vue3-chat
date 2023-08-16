@@ -61,7 +61,11 @@
       :colors="colors"
       @onType="$emit('onType', $event)"
       @edit="$emit('edit', $event)"
-    />
+    >
+      <template v-slot:predefined-comment="{setMessage}">
+        <slot name="predefined-comment" :setMessage="setMessage">/</slot>
+      </template>
+    </UserInput>
   </div>
 </template>
 
